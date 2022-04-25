@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 return [
 
@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'users',
+        'passwords' => 'customuser',
     ],
 
     /*
@@ -38,7 +38,7 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'customuser',
         ],
 
         'api' => [
@@ -71,6 +71,14 @@ return [
             'model' => App\User::class,
         ],
 
+        /**
+         * Custom User to use Auth cua Lavarel
+         */
+        'customuser' => [
+            'driver' => 'eloquent',
+            'model' => App\Admin::class,
+        ],
+
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
@@ -97,6 +105,11 @@ return [
             'provider' => 'users',
             'table' => 'password_resets',
             'expire' => 60,
+        ],
+        'customuser' => [
+            'provider' => 'customuser',
+            'table' => 'password_resets',
+            'expire' => 15,// phien dang nhap het han
         ],
     ],
 

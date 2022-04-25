@@ -4,7 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Admin extends Model
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class Admin extends Authenticatable
 {
     public $timestamps = false; //set time to false
     protected $fillable = [
@@ -16,4 +19,9 @@ class Admin extends Model
  	public function roles(){
  		return $this->belongsToMany('App\Roles');
  	}
+
+    public function getAuthPassword()
+    {
+        return $this->admin_password;
+    }
 }

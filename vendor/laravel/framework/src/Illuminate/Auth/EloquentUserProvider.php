@@ -153,9 +153,16 @@ class EloquentUserProvider implements UserProvider
      */
     public function validateCredentials(UserContract $user, array $credentials)
     {
-        $plain = $credentials['password'];
+        $plain = $credentials['admin_password'];
+        if (md5($plain) == $user->getAuthPassword()) {
+            return true;
+        }else {
+            return false;
+        }
 
-        return $this->hasher->check($plain, $user->getAuthPassword());
+        //this course don't use below way
+        //The Laravel Hash facade provides secure Bcrypt and Argon2 hashing for storing user passwords
+        //return $this->hasher->check($plain, $user->getAuthPassword());
     }
 
     /**

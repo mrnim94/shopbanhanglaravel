@@ -11,7 +11,8 @@ use App\Login;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 use Validator;
-use App\Rules\Captcha; 
+use App\Rules\Captcha;
+use Auth;
 class AdminController extends Controller
 {
     public function login_google(){
@@ -109,7 +110,7 @@ class AdminController extends Controller
     }
 
     public function AuthLogin(){
-        $admin_id = Session::get('admin_id');
+        $admin_id = Auth::id();
         if($admin_id){
             return Redirect::to('dashboard');
         }else{

@@ -154,4 +154,7 @@ Route::get('/active-slide/{slide_id}','SliderController@active_slide');
 
 //Authenticaton Role.
 Route::get('/register-auth', 'AuthController@register_auth');
+Route::get('/login-auth', 'AuthController@login_auth');
 Route::post('/register', 'AuthController@register');
+Route::post('/login', 'AuthController@login');
+Route::get('/logout-auth', 'AuthController@logout_auth');
