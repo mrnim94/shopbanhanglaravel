@@ -178,10 +178,13 @@
                         </div>
                     </div>
                     <div class="col-sm-5">
-                        <form action="{{URL::to('/tim-kiem')}}" method="POST">
+                        <form action="{{URL::to('/tim-kiem')}}" autocomplete="off" method="POST">
                             {{csrf_field()}}
                         <div class="search_box pull-right">
-                            <input type="text" name="keywords_submit" placeholder="Tìm kiếm sản phẩm"/>
+                            <input type="text" id="keywords" style="width: 100%;" name="keywords_submit" placeholder="Tìm kiếm sản phẩm"/>
+                            <div id="search_ajax">
+                                
+                            </div>
                             <input type="submit" style="margin-top:0;color:#666" name="search_items" class="btn btn-primary btn-sm" value="Tìm kiếm">
                         </div>
                         </form>
@@ -602,6 +605,36 @@
                 } 
         });
     });
+    </script>
+    <script type="text/javascript">
+        $('#keywords').keyup(function(){
+            var query = $(this).val();
+            if (query != '') {
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url : '{{url('/autocomplete-ajax')}}',
+                    method: 'POST',
+                    data:{query:query,_token:_token},
+                    success:function(data){
+                       $('#search_ajax').fadeIn();
+                       $('#search_ajax').html(data);
+                    }
+                });
+            }else {
+                $('#search_ajax').fadeOut();
+            }
+        });
+    </script>
+    <script type="text/javascript">
+        // $(document).on('click', '.li_timkiem_ajax', function(){
+        //     $('#keywords').val( $(this).text() );
+        //     $('#search_ajax').fadeOut();
+        // });
+
+        $(document).on('click', '.li_search_ajax', function(){
+            $('#keywords').val($(this).text());
+            $('#search_ajax').fadeOut();
+        });
     </script>
   
 </body>
